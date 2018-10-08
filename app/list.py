@@ -6,24 +6,43 @@ class Node(object):
         self.next = next
 
 
-class  DoublyLinkedList (object):
+class DoubleLinkedList:
+    first = None
+    last = None
+    length = 0
 
     def __init__(self):
-        pass
-
-    self.first = None
-    self.last = None
-    self.length = 0
+        self.first = None
+        self.last = None
+        self.length = 0
 
     def append(self, data):  # to the end
         _new_node = Node(data, self.last, None)
-        self.first.next = _new_node
+        if(self.length == 0):
+            self.length += 1
+            self.last = _new_node
+            self.first = _new_node
+            return
+        if(self.first is not None):
+            self.first.next = _new_node
+        else:
+            self.last = self.last = _new_node
         self.last = _new_node
+        self.length += 1
 
     def push(self, data):  # to the beg
         _new_node = Node(data, None, self.first)
-        self.first.prev = _new_node
+        if (self.length == 0):
+            self.length += 1
+            self.last = _new_node
+            self.first = _new_node
+            return
+        if (self.first is not None):
+            self.first.prev = _new_node
+        else:
+            self.last = self.last = _new_node
         self.first = _new_node
+        self.length += 1
 
     def get_last(self):
         return self.last
@@ -32,20 +51,34 @@ class  DoublyLinkedList (object):
         return self.first
 
     def del_last(self):
-        if self.last is None:
+        if self.length == 0:
+            return
+        if self.length == 1:
+            self.last = None
+            self.first = None
+            self.length = 0
             return
         tmp = self.last
         self.last = self.last.prev
         del tmp
-        self.last.next = None
+        if self.last is not None:
+            self.last.next = None
+        self.length -= 1
 
     def del_first(self):
-        if self.first is None:
+        if self.length == 0:
+            return
+        if (self.length == 1):
+            self.last = None
+            self.first = None
+            self.length = 0
             return
         tmp = self.first
         self.first = self.first.next
         del tmp
-        self.last.next = None
+        if self.last is not None:
+            self.last.next = None
+        self.length -= 1
 
     def size(self):
         return self.length
@@ -59,4 +92,3 @@ class  DoublyLinkedList (object):
                 out += current.data + '\n'
             return out + ']'
         return '[]'
-

@@ -1,35 +1,54 @@
 import unittest
-from _main.py import *
+from ..app.list import DoubleLinkedList
 
 
-class TestDoublyLinkedList(unittest.TestCase):
-
+class TestDoubleLinkedList(unittest.TestCase):
     def test_size(self):
-        l = DoublyLinkedlist()
-        self.assertEqual(l.size(), 0)
-        l.append(1)
-        self.assertEqual(l.size(), 1)
-        l.push(2)
-        self.assertEqual(l.size(), 2)
-        l.append(3)
-        self.assertEqual(l.size(), 3)
-        l.push(4)
-        self.assertEqual(l.size(), 4)
-        
-    def test_add_del(self):
-        self.assertEqual(l.get_first() is None)
-        l = DoublyLinkedlist()
-        l.append(1)
-        self.assertEqual(l.get_first().data == 1)
-        self.assertEqual(l.get_last().data == 1)
-        l.push(2)
-        self.assertEqual(l.get_first().data == 2)
-        self.assertEqual(l.get_last().data == 1)
-        l.append(3)
-        self.assertEqual(l.get_first().data == 3)
-        self.assertEqual(l.get_last().data == 2)
+        new_list = DoubleLinkedList()
+        self.assertEqual(new_list.size(), 0)
+        new_list.append(1)
+        self.assertEqual(new_list.size(), 1)
+        new_list.append(1)
+        self.assertEqual(new_list.size(), 2)
+        new_list.append(1)
+        self.assertEqual(new_list.size(), 3)
+
+    def test_add_append(self):
+        new_list = DoubleLinkedList()
+        self.assertEqual(new_list.get_first(), None)
+        self.assertEqual(new_list.get_last(), None)
+        new_list.append(1)
+        self.assertEqual(new_list.size(), 1)
+        self.assertEqual(new_list.get_last().data, 1)
+        self.assertEqual(new_list.get_first().data, 1)
+        new_list.push(2)
+        self.assertEqual(new_list.size(), 2)
+        new_list.append(3)
+        self.assertEqual(new_list.get_last().data, 3)
+        self.assertEqual(new_list.size(), 3)
+        new_list.push(4)
+        self.assertEqual(new_list.size(), 4)
+
+    def test_del(self):
+        new_list = DoubleLinkedList()
+        self.assertEqual(new_list.get_first(), None)
+        new_list.append(1)
+        new_list.push(2)
+        new_list.del_last()
+        self.assertEqual(new_list.size(), 1)
+        new_list.push(2)
+        new_list.del_first()
+        self.assertEqual(new_list.size(), 1)
+        new_list.del_first()
+        self.assertEqual(new_list.get_first(), None)
+        self.assertEqual(new_list.get_last(), None)
+        new_list.push(1)
+        new_list.push(2)
+        new_list.push(2)
+        new_list.del_last()
+        self.assertEqual(new_list.size(), 2)
+        self.assertEqual(new_list.last.data, 2)
 
 
 if __name__ == '__main__':
     unittest.main()
-
