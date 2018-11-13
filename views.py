@@ -2,9 +2,10 @@ from app import app
 from flask import request, abort, session
 
 # module where work with db is implemented
-from module1 import db_search_users
+from db_module import db_search_users
 
 def login_requered():
+	pass
 	#session.user_id
 
 @app.route('/<string:name>/')
